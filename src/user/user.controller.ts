@@ -9,21 +9,22 @@ export class UserController {
 
     @Post()
     async createUser(@Body() { name, email, password }: CreateUserDto) {
-        return this.userService.createUser();
+        return this.userService.createUser({ name, email, password });
     }
 
     @Get(':id')
-    async getUser(@Body() body: any) {
-        return this.userService.getUser();
+    async getUser(@Param('id') id: string) {
+        console.log(id);
+        return this.userService.getUser(id);
     }
 
     @Delete(':id')
-    async deleteUser(@Body() body: any) {
-        return this.userService.deleteUser();
+    async deleteUser(@Param('id') id: string) {
+        return this.userService.deleteUser(id);
     }
 
     @Patch(':id')
-    async updateUser(@Body() { name, email, password }: UpdateUserDto, @Param() params) {
-        return this.userService.updateUser()
+    async updateUser(@Body() data: UpdateUserDto, @Param('id') id: string) {
+        return this.userService.updateUser({ id, data })
     }
 }
