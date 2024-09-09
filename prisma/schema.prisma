@@ -20,4 +20,17 @@ model User {
   password  String      @db.VarChar(127)
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt @default(now())
+  favorites Favorite[]
+}
+
+model Favorite {
+  user          User        @relation(fields: [userId], references: [id])
+  userId        String
+  type          String
+  titleId       String
+  poster_path   String
+  vote_average  Int
+  title         String
+
+  @@unique([userId, titleId])
 }
